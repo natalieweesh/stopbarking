@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
 	<title>Voice-change-O-matic</title>
-	
+
 	<!--[if le IE 9]>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="scripts/respond.js"></script>
@@ -13,19 +13,23 @@
     <link href='https://fonts.googleapis.com/css?family=Righteous|Nova+Square' rel='stylesheet' type='text/css'>
 	  <link href="styles/normalize.css" rel="stylesheet" type="text/css">
     <link href="styles/app.css" rel="stylesheet" type="text/css">
-	
+
 </head>
 <body>
   <div class="wrapper">
-    
+
     <header>
-      <h1>Voice-change-O-matic</h1>
+      <h1>Stop Barking Dingle!</h1>
     </header>
 
-    <canvas class="visualizer" width="640" height="100"></canvas> 
+    <canvas class="visualizer" width="640" height="100"></canvas>
 
     <form class="controls">
-      <div>
+			<div>
+				<h3>poop</h3>
+				<audio id="nono" src="./audio/nono.m4a" type="audio/mpeg" controls/>
+			</div>
+      <div class="hidden">
         <label for="voice">Voice setting</label>
         <select id="voice" name="voice">
           <option value="distortion">Distortion</option>
@@ -34,7 +38,7 @@
           <option value="off" selected>Off</option>
         </select>
       </div>
-      <div>
+      <div class="hidden">
         <label for="visual">Visualizer setting</label>
         <select id="visual" name="visual">
           <option value="sinewave">Sinewave</option>
@@ -42,7 +46,7 @@
           <option value="off">Off</option>
         </select>
       </div>
-      <div>
+      <div class="hidden">
         <a class="mute">Mute</a>
       </div>
     </form>
@@ -50,9 +54,9 @@
 
   </div>
 
-  <label for="toggle">❔</label>
-  <input type="checkbox" id="toggle">
-  <aside>
+  <label class="hidden" for="toggle">❔</label>
+  <input class="hidden" type="checkbox" id="toggle">
+  <aside class="hidden">
     <h2>Information</h2>
 
     <p>Voice-change-O-matic is built using:</p>
@@ -71,12 +75,12 @@
   </aside>
 
   <!-- The following element pulls in the script for the default template functionality -->
-      
-    <script src="scripts/install.js"></script>  
+
+    <script src="scripts/install.js"></script>
 
     <!-- Below is your custom application script -->
 
     <script src="scripts/app.js"></script>
-	
+
 </body>
 </html>
