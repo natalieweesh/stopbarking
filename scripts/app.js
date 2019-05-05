@@ -1,17 +1,19 @@
 let heading = document.querySelector("h1");
 heading.textContent = "CLICK TO START";
+heading.onclick = init;
 //document.body.onclick = init;
-document.addEventListener("click", init);
-document.addEventListener("touchstart", init);
+//document.addEventListener("click", init);
+heading.addEventListener("touchstart", init);
 
 function init() {
+  alert("init");
   heading.textContent = "Stop Barking Dingle!";
 
   // Older browsers might not implement mediaDevices at all, so we set an empty object first
   if (navigator.mediaDevices === undefined) {
     navigator.mediaDevices = {};
   }
-
+  /*
   var constraints = {
     audio: false
   };
@@ -21,6 +23,7 @@ function init() {
     .then(function success(stream) {
       audio.srcObject = stream;
     });
+    */
 
   // Some browsers partially implement mediaDevices. We can't just assign an object
   // with getUserMedia as it would overwrite existing properties.
