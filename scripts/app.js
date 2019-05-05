@@ -1,11 +1,15 @@
 let heading = document.getElementById("header");
 heading.textContent = "CLICK TO START";
 heading.onclick = init;
+
 //document.body.onclick = init;
 //document.addEventListener("click", init);
 heading.addEventListener("touchstart", init);
-
+setTimeout(() => {
+  heading.click();
+}, 1000);
 function init() {
+  alert("init");
   heading.textContent = "Stop Barking Dingle!";
 
   // Older browsers might not implement mediaDevices at all, so we set an empty object first
