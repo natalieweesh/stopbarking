@@ -138,7 +138,6 @@ function init() {
   var visualSelect = document.getElementById("visual");
 
   var drawVisual;
-  document.getElementById("nono1").play();
   var audios = [
     document.getElementById("nono1"),
     document.getElementById("nono2"),
@@ -148,11 +147,11 @@ function init() {
     document.getElementById("nono6")
   ];
   audios.forEach(audio => {
+    audio.load();
     audio.addEventListener("ended", () => {
       sayNoTimeout = false;
     });
   });
-  audios[0].play();
 
   //main block for doing the audio recording
 
