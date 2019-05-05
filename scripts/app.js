@@ -135,12 +135,16 @@ function init() {
       .getUserMedia(constraints)
       .then(function(stream) {
         source = audioCtx.createMediaStreamSource(stream);
+
         source.connect(distortion);
+
         distortion.connect(biquadFilter);
         biquadFilter.connect(gainNode);
         convolver.connect(gainNode);
+
         gainNode.connect(analyser);
-        analyser.connect(audioCtx.destination);
+
+        //analyser.connect(audioCtx.destination);
         console.log("doing stuff");
 
         visualize();
@@ -216,16 +220,15 @@ function init() {
 
         analyser.getByteFrequencyData(dataArrayAlt);
         //console.log("DATA ARRAY", dataArrayAlt);
-        if (dataArrayAlt.includes(150)) {
+        if (dataArrayAlt.includes(110)) {
           console.log("LOUD!");
           if (!sayNoTimeout) {
             var sayNoTimeout = setTimeout(() => {
               document.getElementById("nono").play();
-              sayNo();
               setTimeout(() => {
                 clearTimeout(sayNoTimeout);
                 sayNoTimeout = null;
-              }, 4500);
+              }, 200);
             }, 0);
           }
         }
@@ -261,6 +264,7 @@ function init() {
   }
 
   function voiceChange() {
+    /*
     distortion.oversample = "4x";
     biquadFilter.gain.setTargetAtTime(0, audioCtx.currentTime, 0);
 
@@ -285,6 +289,7 @@ function init() {
         console.log("Voice settings turned off");
       }
     }
+    */
   }
 
   // event listeners to change visualize and voice settings
