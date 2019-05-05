@@ -56,7 +56,7 @@ function init() {
   var voiceSelect = document.getElementById("voice");
   var source;
   var stream;
-  var sayNoTimeout;
+  var sayNoTimeout = false;
 
   // grab the mute button to use below
 
@@ -138,12 +138,25 @@ function init() {
   var visualSelect = document.getElementById("visual");
 
   var drawVisual;
-  document.getElementById("nono").play();
+  document.getElementById("nono1").play();
+  var audios = [
+    document.getElementById("nono1"),
+    document.getElementById("nono2"),
+    document.getElementById("nono3"),
+    document.getElementById("nono4"),
+    document.getElementById("nono5"),
+    document.getElementById("nono6")
+  ];
+  audios.forEach(audio => {
+    audio.addEventListener("ended", () => {
+      sayNoTimeout = false;
+    });
+  });
+  audios[0].play();
 
   //main block for doing the audio recording
 
   if (navigator.mediaDevices.getUserMedia) {
-    console.log("getUserMedia supported.");
     var constraints = { audio: true };
     navigator.mediaDevices
       .getUserMedia(constraints)
@@ -159,7 +172,6 @@ function init() {
         gainNode.connect(analyser);
 
         //analyser.connect(audioCtx.destination);
-        console.log("doing stuff");
 
         visualize();
         //voiceChange();
@@ -176,13 +188,10 @@ function init() {
     HEIGHT = canvas.height;
 
     var visualSetting = visualSelect.value;
-    console.log(visualSetting);
-    console.log("visualize!");
 
     if (visualSetting === "sinewave") {
       analyser.fftSize = 2048;
       var bufferLength = analyser.fftSize;
-      console.log(bufferLength);
       var dataArray = new Uint8Array(bufferLength);
 
       canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);
@@ -224,7 +233,6 @@ function init() {
     } else if (visualSetting == "frequencybars") {
       analyser.fftSize = 256;
       var bufferLengthAlt = analyser.frequencyBinCount;
-      console.log(bufferLengthAlt);
       var dataArrayAlt = new Uint8Array(bufferLengthAlt);
 
       canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);
@@ -233,17 +241,10 @@ function init() {
         drawVisual = requestAnimationFrame(drawAlt);
 
         analyser.getByteFrequencyData(dataArrayAlt);
-        //console.log("DATA ARRAY", dataArrayAlt);
-        if (dataArrayAlt.includes(110)) {
-          console.log("LOUD!");
+        if (dataArrayAlt.includes(120)) {
           if (!sayNoTimeout) {
-            var sayNoTimeout = setTimeout(() => {
-              document.getElementById("nono").play();
-              setTimeout(() => {
-                clearTimeout(sayNoTimeout);
-                sayNoTimeout = null;
-              }, 200);
-            }, 0);
+            sayNoTimeout = true;
+            audios[Math.floor(Math.random() * 6)].play();
           }
         }
 
