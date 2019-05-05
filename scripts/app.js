@@ -7,6 +7,8 @@ heading.onclick = init;
 heading.addEventListener("touchstart", init);
 setTimeout(() => {
   heading.click();
+  var e = new Event("touchstart");
+  heading.dispatchEvent(e);
 }, 1000);
 function webAudioTouchUnlock(context) {
   if (context.state === "suspended" && "ontouchstart" in window) {
