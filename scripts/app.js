@@ -1,4 +1,4 @@
-let heading = document.querySelector("h1");
+let heading = document.getElementById("header");
 heading.textContent = "CLICK TO START";
 heading.onclick = init;
 //document.body.onclick = init;
@@ -57,6 +57,17 @@ function init() {
   // window. is needed otherwise Safari explodes
 
   var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+  if (audioCtx.createJavaScriptNode) {
+    audioNode = audioCtx.createJavaScriptNode(bufferSize, 1, 1);
+  } else if (audioCtx.createScriptProcessor) {
+    audioNode = audioCtx.createScriptProcessor(bufferSize, 1, 1);
+  } else {
+    alert("web audio not supperted");
+    throw "WebAudio not supported!";
+  }
+  audioNode.connect(audioCtx.destination);
+
   var voiceSelect = document.getElementById("voice");
   var source;
   var stream;

@@ -52,6 +52,10 @@ canvas {
   box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.7), 0 3px 4px rgba(0, 0, 0, 0.7);
 }
 
+audio {
+  margin: 50px auto;
+}
+
 .controls {
   height: calc(100% - 225px);
 }
