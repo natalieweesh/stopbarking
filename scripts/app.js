@@ -59,9 +59,9 @@ function init() {
   var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
   if (audioCtx.createJavaScriptNode) {
-    audioNode = audioCtx.createJavaScriptNode(bufferSize, 1, 1);
+    audioNode = audioCtx.createJavaScriptNode(2048, 1, 1);
   } else if (audioCtx.createScriptProcessor) {
-    audioNode = audioCtx.createScriptProcessor(bufferSize, 1, 1);
+    audioNode = audioCtx.createScriptProcessor(2048, 1, 1);
   } else {
     alert("web audio not supperted");
     throw "WebAudio not supported!";
