@@ -7,13 +7,10 @@ heading.onclick = init;
 heading.addEventListener("touchstart", init);
 setTimeout(() => {
   heading.click();
-  var e = new Event("touchstart");
-  heading.dispatchEvent(e);
 }, 1000);
 function webAudioTouchUnlock(context) {
   if (context.state === "suspended" && "ontouchstart" in window) {
     var unlock = function() {
-      alert("unlocking!");
       context.resume().then(function() {
         document.body.removeEventListener("touchstart", unlock);
         document.body.removeEventListener("touchend", unlock);
@@ -22,10 +19,12 @@ function webAudioTouchUnlock(context) {
 
     document.body.addEventListener("touchstart", unlock, false);
     document.body.addEventListener("touchend", unlock, false);
+    unlock();
   }
 }
 function init() {
-  alert("init");
+  document.getElementById("nono1").play();
+
   heading.textContent = "Stop Barking Dingle!";
 
   // Older browsers might not implement mediaDevices at all, so we set an empty object first
