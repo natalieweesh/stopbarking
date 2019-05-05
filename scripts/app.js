@@ -1,6 +1,8 @@
 let heading = document.querySelector("h1");
 heading.textContent = "CLICK TO START";
-document.body.onclick = init;
+//document.body.onclick = init;
+document.addEventListener("click", init);
+document.addEventListener("touchstart", init);
 
 function init() {
   heading.textContent = "Stop Barking Dingle!";
