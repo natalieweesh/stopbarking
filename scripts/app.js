@@ -8,7 +8,22 @@ heading.addEventListener("touchstart", init);
 setTimeout(() => {
   heading.click();
 }, 1000);
+function webAudioTouchUnlock(context) {
+  if (context.state === "suspended" && "ontouchstart" in window) {
+    var unlock = function() {
+      alert("unlocking!");
+      context.resume().then(function() {
+        document.body.removeEventListener("touchstart", unlock);
+        document.body.removeEventListener("touchend", unlock);
+      });
+    };
+
+    document.body.addEventListener("touchstart", unlock, false);
+    document.body.addEventListener("touchend", unlock, false);
+  }
+}
 function init() {
+  alert("init");
   heading.textContent = "Stop Barking Dingle!";
 
   // Older browsers might not implement mediaDevices at all, so we set an empty object first
@@ -23,9 +38,9 @@ function init() {
     navigator.mediaDevices.getUserMedia = function(constraints) {
       // First get ahold of the legacy getUserMedia, if present
       var getUserMedia =
-            navigator.webkitGetUserMedia ||
-            navigator.mozGetUserMedia ||
-            navigator.msGetUserMedia;
+        navigator.webkitGetUserMedia ||
+        navigator.mozGetUserMedia ||
+        navigator.msGetUserMedia;
 
       // Some browsers just don't implement it - return a rejected promise with an error
       // to keep a consistent interface
@@ -46,7 +61,7 @@ function init() {
   // window. is needed otherwise Safari explodes
 
   let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-
+  webAudioTouchUnlock(audioCtx);
   if (audioCtx.createJavaScriptNode) {
     audioNode = audioCtx.createJavaScriptNode(2048, 1, 1);
   } else if (audioCtx.createScriptProcessor) {
@@ -113,7 +128,6 @@ function init() {
 
         gainNode.connect(analyser);
 
-
         visualize();
       })
       .catch(function(err) {
@@ -155,12 +169,7 @@ function init() {
         barHeight = dataArrayAlt[i];
 
         canvasCtx.fillStyle = "rgb(" + (barHeight + 100) + ",50,50)";
-        canvasCtx.fillRect(
-          x,
-          HEIGHT - barHeight / 2,
-          barWidth,
-          barHeight / 2
-        );
+        canvasCtx.fillRect(x, HEIGHT - barHeight / 2, barWidth, barHeight / 2);
 
         x += barWidth + 1;
       }
