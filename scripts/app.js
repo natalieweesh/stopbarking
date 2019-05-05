@@ -9,7 +9,6 @@ setTimeout(() => {
   heading.click();
 }, 1000);
 function init() {
-  alert("init");
   heading.textContent = "Stop Barking Dingle!";
 
   // Older browsers might not implement mediaDevices at all, so we set an empty object first
@@ -42,7 +41,7 @@ function init() {
       });
     };
   }
-  
+
   // set up forked web audio context, for multiple browsers
   // window. is needed otherwise Safari explodes
 
