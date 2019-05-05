@@ -10,10 +10,21 @@ function init() {
     navigator.mediaDevices = {};
   }
 
+  var constraints = {
+    audio: false
+  };
+  audio = document.getElementsByTagName("audio");
+  navigator.mediaDevices
+    .getUserMedia(constraints)
+    .then(function success(stream) {
+      audio.srcObject = stream;
+    });
+
   // Some browsers partially implement mediaDevices. We can't just assign an object
   // with getUserMedia as it would overwrite existing properties.
   // Here, we will just add the getUserMedia property if it's missing.
   if (navigator.mediaDevices.getUserMedia === undefined) {
+    alert("no getUserMedia exists");
     navigator.mediaDevices.getUserMedia = function(constraints) {
       // First get ahold of the legacy getUserMedia, if present
       var getUserMedia =
@@ -24,6 +35,7 @@ function init() {
       // Some browsers just don't implement it - return a rejected promise with an error
       // to keep a consistent interface
       if (!getUserMedia) {
+        alert("getUserMedia wont work in this browser");
         return Promise.reject(
           new Error("getUserMedia is not implemented in this browser")
         );
@@ -52,6 +64,7 @@ function init() {
   //set up the different audio nodes we will use for the app
 
   var analyser = audioCtx.createAnalyser();
+  alert("created analyzer");
   analyser.minDecibels = -90;
   analyser.maxDecibels = -10;
   analyser.smoothingTimeConstant = 0.85;
