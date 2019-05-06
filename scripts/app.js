@@ -152,7 +152,7 @@ function init() {
       drawVisual = requestAnimationFrame(drawAlt);
 
       analyser.getByteFrequencyData(dataArrayAlt);
-      if (dataArrayAlt.includes(120)) {
+      if (dataArrayAlt.includes(130)) {
         if (!sayNoTimeout) {
           sayNoTimeout = true;
           audios[Math.floor(Math.random() * 6)].play();
