@@ -2,12 +2,6 @@ let heading = document.getElementById("header");
 heading.textContent = "CLICK TO START";
 heading.onclick = init;
 
-//document.body.onclick = init;
-//document.addEventListener("click", init);
-heading.addEventListener("touchstart", init);
-setTimeout(() => {
-  heading.click();
-}, 1000);
 function webAudioTouchUnlock(context) {
   if (context.state === "suspended" && "ontouchstart" in window) {
     var unlock = function() {
@@ -152,7 +146,7 @@ function init() {
       drawVisual = requestAnimationFrame(drawAlt);
 
       analyser.getByteFrequencyData(dataArrayAlt);
-      if (dataArrayAlt.includes(130)) {
+      if (dataArrayAlt.reduce((a, b) => Math.max(a, b)) > 175) {
         if (!sayNoTimeout) {
           sayNoTimeout = true;
           audios[Math.floor(Math.random() * 6)].play();
