@@ -18,6 +18,11 @@ function webAudioTouchUnlock(context) {
 }
 function init() {
   document.getElementById("nono1").play();
+  setTimeout(() => document.getElementById("nono2").play(), 4000);
+  setTimeout(() => document.getElementById("nono3").play(), 4000);
+  setTimeout(() => document.getElementById("nono4").play(), 4000);
+  setTimeout(() => document.getElementById("nono5").play(), 4000);
+  setTimeout(() => document.getElementById("nono6").play(), 4000);
 
   heading.textContent = "Stop Barking Dingle!";
 
@@ -146,7 +151,7 @@ function init() {
       drawVisual = requestAnimationFrame(drawAlt);
 
       analyser.getByteFrequencyData(dataArrayAlt);
-      if (dataArrayAlt.reduce((a, b) => Math.max(a, b)) > 175) {
+      if (dataArrayAlt.reduce((a, b) => Math.max(a, b)) > 155) {
         if (!sayNoTimeout) {
           sayNoTimeout = true;
           audios[Math.floor(Math.random() * 6)].play();
