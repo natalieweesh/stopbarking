@@ -151,7 +151,7 @@ function init() {
       drawVisual = requestAnimationFrame(drawAlt);
 
       analyser.getByteFrequencyData(dataArrayAlt);
-      if (dataArrayAlt.reduce((a, b) => Math.max(a, b)) > 155) {
+      if (dataArrayAlt.reduce((a, b) => Math.max(a, b)) > 135) {
         if (!sayNoTimeout) {
           sayNoTimeout = true;
           audios[Math.floor(Math.random() * 6)].play();
